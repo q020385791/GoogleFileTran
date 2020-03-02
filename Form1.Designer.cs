@@ -51,11 +51,11 @@
             // 
             // btnUpLoad
             // 
-            this.btnUpLoad.Location = new System.Drawing.Point(24, 148);
+            this.btnUpLoad.Location = new System.Drawing.Point(156, 32);
             this.btnUpLoad.Name = "btnUpLoad";
             this.btnUpLoad.Size = new System.Drawing.Size(116, 23);
             this.btnUpLoad.TabIndex = 2;
-            this.btnUpLoad.Text = "UpLoadFile";
+            this.btnUpLoad.Text = "上傳單一檔案";
             this.btnUpLoad.UseVisualStyleBackColor = true;
             this.btnUpLoad.Click += new System.EventHandler(this.btnUpLoad_Click);
             // 
@@ -91,7 +91,7 @@
             this.btnUpLoadFolder.Name = "btnUpLoadFolder";
             this.btnUpLoadFolder.Size = new System.Drawing.Size(116, 23);
             this.btnUpLoadFolder.TabIndex = 9;
-            this.btnUpLoadFolder.Text = "UpLoadFolder";
+            this.btnUpLoadFolder.Text = "上傳資料夾壓縮檔";
             this.btnUpLoadFolder.UseVisualStyleBackColor = true;
             this.btnUpLoadFolder.Click += new System.EventHandler(this.btnUpLoadFolder_Click);
             // 

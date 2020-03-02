@@ -130,35 +130,34 @@ namespace GoogleFileTran
             {
                 FilePath = OpenDialog.FileName;
                 FileName = Path.GetFileName(OpenDialog.FileName);
-            }
-
-            var fileMetadata = new Google.Apis.Drive.v3.Data.File()
-            {
-                Name = FileName
-            };
-            try
-            {
-                FilesResource.CreateMediaUpload request;
-                UpdateUI("上傳中 請稍後", labStatus);
-                using (var stream = new System.IO.FileStream(FilePath,
-                                        System.IO.FileMode.Open))
+                var fileMetadata = new Google.Apis.Drive.v3.Data.File()
                 {
-                    string contentType = MimeMapping.GetMimeMapping(FilePath);
-                    request = service.Files.Create(
-                        fileMetadata, stream, contentType);
-                    request.Fields = "id,webViewLink,createdTime";
-                    request.Upload();
+                    Name = FileName
+                };
+                try
+                {
+                    FilesResource.CreateMediaUpload request;
+                    UpdateUI("上傳中 請稍後", labStatus);
+                    using (var stream = new System.IO.FileStream(FilePath,
+                                            System.IO.FileMode.Open))
+                    {
+                        string contentType = MimeMapping.GetMimeMapping(FilePath);
+                        request = service.Files.Create(
+                            fileMetadata, stream, contentType);
+                        request.Fields = "id,webViewLink,createdTime";
+                        request.Upload();
+                    }
+                    var file = request.ResponseBody;
+                    UpdateUI("上傳完成   時間：" + file.CreatedTime.ToString(), labStatus);
+                    UpdateUI(file.WebViewLink, txtUrl);
                 }
-                var file = request.ResponseBody;
-                UpdateUI("上傳完成   時間：" + file.CreatedTime.ToString(), labStatus);
-                UpdateUI(file.WebViewLink, txtUrl);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("錯誤：" + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("錯誤："+ex.Message);
-            }
+            //重整清單
             btnGetFolderClickThread();
-
         }
 
         #region 跨執行緒更新UI的Text
@@ -220,48 +219,51 @@ namespace GoogleFileTran
             {
                 FilePath = BrowserDialog.SelectedPath;
                 FileName = Path.GetFileName(FilePath);
-            }
-            try
-            {
-                UpdateUI("壓檔中 請稍後", labStatus);
-                ZipFile.CreateFromDirectory(FilePath, FilePath + ".zip");
 
-                var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+                try
                 {
-                    Name = FileName,
-                    MimeType = "application/zip"
-                };
-                UpdateUI("上傳中 請稍後", labStatus);
-                FilesResource.CreateMediaUpload request;
-                using (var stream = new System.IO.FileStream(FilePath + ".zip",
-                                        System.IO.FileMode.Open))
+                    UpdateUI("壓檔中 請稍後", labStatus);
+                    ZipFile.CreateFromDirectory(FilePath, FilePath + ".zip");
+
+                    var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+                    {
+                        Name = FileName,
+                        MimeType = "application/zip"
+                    };
+                    UpdateUI("上傳中 請稍後", labStatus);
+                    FilesResource.CreateMediaUpload request;
+                    using (var stream = new System.IO.FileStream(FilePath + ".zip",
+                                            System.IO.FileMode.Open))
+                    {
+                        string contentType = MimeMapping.GetMimeMapping(FilePath + ".zip");
+                        request = service.Files.Create(
+                            fileMetadata, stream, contentType);
+                        request.Fields = "id,webViewLink,createdTime";
+                        request.Upload();
+                    }
+
+                    var file = request.ResponseBody;
+                    UpdateUI("上傳完成   時間：" + file.CreatedTime.ToString(), labStatus);
+                    Console.WriteLine("File ID: " + file.Id + file.WebViewLink + file.CreatedTime);
+                    Google.Apis.Drive.v3.Data.Permission permission = new Google.Apis.Drive.v3.Data.Permission();
+                    permission.Type = "anyone";
+                    permission.Role = "commenter";
+
+                    service.Permissions.Create(permission, file.Id).Execute();
+                    Console.WriteLine(FilePath + ".zip upLoad Finish");
+                    File.Delete(FilePath + ".zip");
+                    UpdateUI(file.WebViewLink, txtUrl);
+                    btnGetFolderClickThread();
+                }
+                catch (Exception e)
                 {
-                    string contentType = MimeMapping.GetMimeMapping(FilePath + ".zip");
-                    request = service.Files.Create(
-                        fileMetadata, stream, contentType);
-                    request.Fields = "id,webViewLink,createdTime";
-                    request.Upload();
+
+                    MessageBox.Show(e.Message);
                 }
 
-                var file = request.ResponseBody;
-                UpdateUI("上傳完成   時間：" + file.CreatedTime.ToString(), labStatus);
-                Console.WriteLine("File ID: " + file.Id + file.WebViewLink + file.CreatedTime);
-                Google.Apis.Drive.v3.Data.Permission permission = new Google.Apis.Drive.v3.Data.Permission();
-                permission.Type = "anyone";
-                permission.Role = "commenter";
-
-                service.Permissions.Create(permission, file.Id).Execute();
-                Console.WriteLine(FilePath + ".zip upLoad Finish");
-                File.Delete(FilePath + ".zip");
-                UpdateUI(file.WebViewLink, txtUrl);
-                btnGetFolderClickThread();
 
             }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.Message);
-            }
+            
 
         }
 
