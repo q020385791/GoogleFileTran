@@ -1,5 +1,6 @@
 ﻿using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
+using Google.Apis.Drive.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
 using System;
@@ -161,6 +162,14 @@ namespace GoogleFileTran
                         request.Upload();
                     }
                     var file = request.ResponseBody;
+
+                    Permission permission = new Permission();
+                    permission.Role = "reader";
+                    permission.Type = "anyone";
+                    //permission.Kind = "";
+                    service.Permissions.Create(permission, file.Id).Execute();
+
+
                     UpdateUI("上傳完成   時間：" + file.CreatedTime.ToString(), labStatus);
                     UpdateUI(file.WebViewLink, txtUrl);
                 }
@@ -264,7 +273,7 @@ namespace GoogleFileTran
 
                     service.Permissions.Create(permission, file.Id).Execute();
                     Console.WriteLine(FilePath + ".zip upLoad Finish");
-                    File.Delete(FilePath + ".zip");
+                    System.IO.File.Delete(FilePath + ".zip");
                     UpdateUI(file.WebViewLink, txtUrl);
                     btnGetFolderClickThread();
                 }
