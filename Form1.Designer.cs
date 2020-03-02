@@ -43,9 +43,9 @@
             // 
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(485, 139);
+            this.listBox1.Location = new System.Drawing.Point(156, 163);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(199, 292);
+            this.listBox1.Size = new System.Drawing.Size(317, 292);
             this.listBox1.TabIndex = 1;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -61,11 +61,11 @@
             // 
             // btnGetFolder
             // 
-            this.btnGetFolder.Location = new System.Drawing.Point(371, 139);
+            this.btnGetFolder.Location = new System.Drawing.Point(19, 163);
             this.btnGetFolder.Name = "btnGetFolder";
-            this.btnGetFolder.Size = new System.Drawing.Size(98, 23);
+            this.btnGetFolder.Size = new System.Drawing.Size(121, 23);
             this.btnGetFolder.TabIndex = 6;
-            this.btnGetFolder.Text = "GetUrl";
+            this.btnGetFolder.Text = "取得現有檔案清單";
             this.btnGetFolder.UseVisualStyleBackColor = true;
             this.btnGetFolder.Click += new System.EventHandler(this.btnGetFolder_Click);
             // 
@@ -74,20 +74,20 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(22, 83);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 12);
+            this.label1.Size = new System.Drawing.Size(44, 12);
             this.label1.TabIndex = 7;
-            this.label1.Text = "資料夾Url";
+            this.label1.Text = "資料Url";
             // 
             // txtUrl
             // 
-            this.txtUrl.Location = new System.Drawing.Point(84, 83);
+            this.txtUrl.Location = new System.Drawing.Point(72, 77);
             this.txtUrl.Name = "txtUrl";
-            this.txtUrl.Size = new System.Drawing.Size(600, 22);
+            this.txtUrl.Size = new System.Drawing.Size(478, 22);
             this.txtUrl.TabIndex = 8;
             // 
             // btnUpLoadFolder
             // 
-            this.btnUpLoadFolder.Location = new System.Drawing.Point(22, 32);
+            this.btnUpLoadFolder.Location = new System.Drawing.Point(24, 32);
             this.btnUpLoadFolder.Name = "btnUpLoadFolder";
             this.btnUpLoadFolder.Size = new System.Drawing.Size(116, 23);
             this.btnUpLoadFolder.TabIndex = 9;
@@ -107,21 +107,21 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(371, 178);
+            this.btnDelete.Location = new System.Drawing.Point(24, 301);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(98, 23);
+            this.btnDelete.Size = new System.Drawing.Size(116, 23);
             this.btnDelete.TabIndex = 12;
-            this.btnDelete.Text = "Delete";
+            this.btnDelete.Text = "刪除檔案";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnGoUrl
             // 
-            this.btnGoUrl.Location = new System.Drawing.Point(371, 219);
+            this.btnGoUrl.Location = new System.Drawing.Point(24, 227);
             this.btnGoUrl.Name = "btnGoUrl";
-            this.btnGoUrl.Size = new System.Drawing.Size(98, 23);
+            this.btnGoUrl.Size = new System.Drawing.Size(116, 23);
             this.btnGoUrl.TabIndex = 13;
-            this.btnGoUrl.Text = "GoUrl";
+            this.btnGoUrl.Text = "網頁查看檔案";
             this.btnGoUrl.UseVisualStyleBackColor = true;
             this.btnGoUrl.Click += new System.EventHandler(this.btnGoUrl_Click);
             // 
@@ -129,7 +129,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(714, 503);
+            this.ClientSize = new System.Drawing.Size(593, 503);
             this.Controls.Add(this.btnGoUrl);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.labStatus);

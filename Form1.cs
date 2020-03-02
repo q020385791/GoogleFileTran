@@ -100,17 +100,30 @@ namespace GoogleFileTran
         //開啟瀏覽器瀏覽
         private void btnGoUrl_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+            try
+            {
+                if (txtUrl.Text == "")
+                {
+                    MessageBox.Show("請點選右邊清單，或是點選");
+                }
+                else
+                {
+                    System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
-            proc.EnableRaisingEvents = false;
+                    proc.EnableRaisingEvents = false;
 
-            //Here you can also specify a html page on local machine
+                    proc.StartInfo.FileName = txtUrl.Text;
 
-            //such as C:\Test\default.html
+                    proc.Start();
+                }
+            }
+            catch (Exception ex)
+            {
 
-            proc.StartInfo.FileName = txtUrl.Text;
-
-            proc.Start();
+                MessageBox.Show(ex.Message);
+            }
+            
+            
         }
         //上傳單一檔案
         private void btnUpLoad_Click(object sender, EventArgs e)
